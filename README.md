@@ -1,44 +1,61 @@
 # Ops Brain Local
 
-**Ops Brain Local** is an on-device, fully offline AI assistant and agent platform designed for industrial knowledge intelligence. It is optimized to run locally on consumer hardware (e.g., an 8GB Intel laptop) without sending data to the cloud, protecting data privacy and ensuring performance in remote/offline plant environments.
+An offline, on-device AI assistant and agent platform built for industrial knowledge intelligence, operations analysis, and local decision support.
+
+## Overview
+Ops Brain Local is designed for industrial and plant environments where data privacy, offline access, and fast local intelligence matter most. It supports document understanding, plant query workflows, compliance checks, and operational assistance without sending sensitive information to the cloud.
 
 ## Features
+- Local document parsing for PDFs, images, Excel files, and HTML
+- On-device LLM responses with citation support
+- Hybrid retrieval using vector search and knowledge graphs
+- Specialized local agents for maintenance, compliance, and incident review
+- Streamlit-powered operational dashboard
 
-- **Document Parser**: Ingests PDFs, images, Excel sheets, and HTML locally using **Docling**.
-- **Local LLM**: Generates cited responses in seconds using **Qwen2.5-3B INT4 (OpenVINO IR)**.
-- **Hybrid Retrieval**: Employs vector search (**ChromaDB**) alongside relational knowledge graphs (**NetworkX**) to enrich prompts with precise local plant context.
-- **5 Local Agents**: Specialized agents for Ingestion, Copilot, Maintenance RCA, Compliance Audit, and Incident Lessons.
-- **Streamlit Dashboard**: Multi-page UI for plant querying, document uploading, graph exploration, compliance checking, and risk score visualization.
+## Tech Stack
+- Frontend: Streamlit
+- Backend: FastAPI
+- AI/ML: Qwen2.5, Docling, spaCy, ChromaDB, NetworkX
+- Deployment: Local-first / edge-ready
 
-## Technical Architecture
-
-```
+## Architecture
+```text
 [UI: Streamlit] <---> [Backend: FastAPI] <---> [RAG Pipeline]
-                                                  |
-                     +----------------------------+----------------------------+
-                     |                            |                            |
-            [Docling + spaCy]               [ChromaDB]                    [NetworkX]
-           (Document Parsing)            (Vector Retrieval)           (Knowledge Graph)
+                                              |
+                    +---------------------------+---------------------------+
+                    |                           |                           |
+        [Docling + spaCy]          [ChromaDB]               [NetworkX]
+     (Document Parsing)         (Vector Retrieval)       (Knowledge Graph)
 ```
 
-## Quick Start (3 Steps)
-
-### Step 1: Install Dependencies
+## Quick Start
+### 1. Install dependencies
 ```bash
 pip install -r requirements.txt
 python -m spacy download en_core_web_sm
 ```
 
-### Step 2: Download Model & Quantize
+### 2. Download model and quantize
 ```bash
 python scripts/download_model.py
 ```
 
-### Step 3: Run the Unified Launcher
+### 3. Run the unified launcher
 ```bash
 python run.py --demo
 ```
-This will seed the database with sample work orders and asset tags, start the FastAPI server, and launch the Streamlit frontend.
+
+This starts the sample data workflow, launches the FastAPI server, and opens the Streamlit dashboard for local operational use.
+
+## Project Goal
+To build a privacy-safe, local-first industrial intelligence system that helps teams work with operational knowledge efficiently and securely.
+
+## My Contribution
+This project reflects applied AI engineering in industrial settings, focusing on offline inference, knowledge retrieval, and local operational tooling.
+
+## Status
+Advanced prototype / applied AI project
 
 ---
+
 *Zero bytes sent to cloud. Built for OSDHack 2026.*
